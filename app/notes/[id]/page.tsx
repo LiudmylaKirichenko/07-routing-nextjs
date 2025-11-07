@@ -1,5 +1,5 @@
 import { fetchNoteById } from "@/lib/api";
-import NoteDetailsClient from "../NoteDetailsClient";
+import NoteDetailsClient from "./NoteDetails.client";
 import {
   dehydrate,
   HydrationBoundary,
@@ -10,8 +10,10 @@ type Props = {
   params: Promise<{ id: string }>;
 };
 
-const NoteDetails = async ({ params }: Props) => {
+export default async function NoteDetails({ params }: Props) {
   const { id } = await params;
+  console.log("res", id);
+
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery({
     queryKey: ["note", id],
@@ -19,10 +21,10 @@ const NoteDetails = async ({ params }: Props) => {
   });
 
   return (
-    <HydrationBoundary state={dehydrate(queryClient)}>
-      <NoteDetailsClient id={id} />;
-    </HydrationBoundary>
+    <div>
+      <HydrationBoundary state={dehydrate(queryClient)}>
+        <NoteDetailsClient />
+      </HydrationBoundary>
+    </div>
   );
-};
-
-export default NoteDetails;
+}
