@@ -1,4 +1,5 @@
 import React from "react";
+import css from "./layout.module.css";
 
 type Props = {
   children: React.ReactNode;
@@ -7,9 +8,9 @@ type Props = {
 
 const NotesLayout = ({ children, sidebar }: Props) => {
   return (
-    <section>
-      <aside>{sidebar}</aside>
-      <div>{children}</div>
+    <section className={css.container}>
+      <aside className={css.sidebar}>{sidebar}</aside>
+      <main className={css.notesWrapper}>{children}</main>
     </section>
   );
 };
